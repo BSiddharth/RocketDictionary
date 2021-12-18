@@ -14,33 +14,35 @@ const kPrussianBlue = Color(0xff2F3952);
 
 // Light mode theme
 ThemeData lightThemeData = ThemeData(
-    unselectedWidgetColor: kPrussianBlue,
-    scaffoldBackgroundColor: kAntiFlashWhite,
-    primarySwatch: Colors.blue,
-    // drawerTheme: DrawerThemeData(),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: kWhite,
-      elevation: 0,
-      selectedItemColor: kCerulean,
-    ),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: kAntiFlashWhite,
-      elevation: 0,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        // Status bar color
-        statusBarColor: kAntiFlashWhite, // For both Android + iOS
+  unselectedWidgetColor: kPrussianBlue,
+  scaffoldBackgroundColor: kAntiFlashWhite,
+  primarySwatch: Colors.blue,
+  // drawerTheme: DrawerThemeData(),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: kWhite,
+    elevation: 0,
+    selectedItemColor: kCerulean,
+  ),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: kAntiFlashWhite,
+    elevation: 0,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      // Status bar color
+      statusBarColor: kAntiFlashWhite, // For both Android + iOS
 
-        // Status bar brightness (optional)
-        statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-        statusBarBrightness: Brightness.light, // For iOS (dark icons)
-      ),
+      // Status bar brightness
+      statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+      statusBarBrightness: Brightness.light, // For iOS (dark icons)
     ),
-    iconTheme: const IconThemeData(size: 28, color: kPrussianBlue,),
-    switchTheme: SwitchThemeData(
-      trackColor: MaterialStateProperty.all<Color>(Colors.grey),
-    ),
-    
-    );
+  ),
+  iconTheme: const IconThemeData(
+    size: 28,
+    color: kPrussianBlue,
+  ),
+  switchTheme: SwitchThemeData(
+    trackColor: MaterialStateProperty.all<Color>(Colors.grey),
+  ),
+);
 
 // Dark Mode theme
 ThemeData darkThemeData = ThemeData(
@@ -52,6 +54,8 @@ ThemeData darkThemeData = ThemeData(
       systemOverlayStyle: SystemUiOverlayStyle(
         // Status bar color
         statusBarColor: kDarkModeMainBlack, // For both Android + iOS
+
+        // Status bar brightness
         statusBarIconBrightness: Brightness.light, // For Android
         statusBarBrightness: Brightness.dark, // For iOS
       ),
