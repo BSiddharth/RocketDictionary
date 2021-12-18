@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 const kDarkModeMainBlack = Color(0xff131313);
 const kDarkModeSupportBlackishGrey = Color(0xff272727);
 const kAntiFlashWhite = Color(0xffDBDBDB);
-const kWhite = Color(0xffffffff);
 const kDarkModeGreen = Color(0xff36EA8E);
 const kDeepSkyBlue = Color(0xff3EAFEE);
 const kCerulean = Color(0xff1C76A5);
@@ -19,7 +18,7 @@ ThemeData lightThemeData = ThemeData(
   primarySwatch: Colors.blue,
   // drawerTheme: DrawerThemeData(),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: kWhite,
+    backgroundColor: Colors.white,
     elevation: 0,
     selectedItemColor: kCerulean,
   ),
@@ -33,6 +32,8 @@ ThemeData lightThemeData = ThemeData(
       // Status bar brightness
       statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
       statusBarBrightness: Brightness.light, // For iOS (dark icons)
+
+      systemNavigationBarColor: kDarkModeSupportBlackishGrey,
     ),
   ),
   iconTheme: const IconThemeData(
@@ -58,6 +59,8 @@ ThemeData darkThemeData = ThemeData(
         // Status bar brightness
         statusBarIconBrightness: Brightness.light, // For Android
         statusBarBrightness: Brightness.dark, // For iOS
+
+        systemNavigationBarColor: Colors.white
       ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

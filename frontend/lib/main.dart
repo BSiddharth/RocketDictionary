@@ -6,18 +6,11 @@ import 'package:rocketdictionary/providers.dart';
 import 'package:rocketdictionary/screens/mainScreen.dart';
 
 void main() {
-  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-  //   statusBarColor: kDarkModeMainBlack,
-  // ));
-  
   runApp(const ProviderScope(child: MyApp()));
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
 }
-
-
-// final lightModeActivatedProvider = Provider<bool>((ref) => false);
 
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
