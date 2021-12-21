@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rocketdictionary/providers.dart';
-import 'package:rocketdictionary/screens/mainScreen.dart';
+import 'package:rocketdictionary/screens/mainScreens/main_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -26,4 +26,3 @@ class MyApp extends ConsumerWidget {
     );
   }
 }
-

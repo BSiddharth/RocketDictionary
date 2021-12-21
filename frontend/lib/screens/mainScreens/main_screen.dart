@@ -3,6 +3,9 @@ import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rocketdictionary/providers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rocketdictionary/screens/mainScreens/bookmarks_screen.dart';
+import 'package:rocketdictionary/screens/mainScreens/glossary_screen.dart';
+import 'package:rocketdictionary/screens/mainScreens/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -14,21 +17,11 @@ class MainScreen extends StatefulWidget {
 class _MainPageState extends State<MainScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   static int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(
-      fontSize: 30, fontWeight: FontWeight.bold, color: kAntiFlashWhite);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Rocket',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Glossary',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Bookmarks',
-      style: optionStyle,
-    ),
+
+  static const List<Widget> _screenList = <Widget>[
+    HomeScreen(),
+    GlossaryScreen(),
+    BookmarksScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -48,14 +41,16 @@ class _MainPageState extends State<MainScreen> {
         title: Consumer(
           builder: (context, ref, child) {
             return Image.asset(
-          "assets/images/RocketDictionaryLogo-removebg.png",
-          height: 45,
-          color: ref.watch(lightModeActivatedStateProvider)? kPrussianBlue:kAntiFlashWhite,
-        ) ;
+              "assets/images/RocketDictionaryLogo-removebg.png",
+              height: 45,
+              color: ref.watch(lightModeActivatedStateProvider)
+                  ? kPrussianBlue
+                  : kAntiFlashWhite,
+            );
           },
         ),
         leading: IconButton(
-          color: Theme.of(context).iconTheme.color,
+            color: Theme.of(context).iconTheme.color,
             onPressed: () {
               _scaffoldKey.currentState?.openDrawer();
             },
@@ -63,7 +58,6 @@ class _MainPageState extends State<MainScreen> {
               Icons.menu_rounded,
               size: 28,
             )),
-  
         actions: [
           IconButton(
             onPressed: () {},
@@ -86,35 +80,37 @@ class _MainPageState extends State<MainScreen> {
       ),
       drawer: Consumer(
         builder: (context, ref, child) {
-          return  Drawer(
-        child: Column(
-          children: [
-            Container(
-              color: ref.watch(lightModeActivatedStateProvider)? Colors.grey: kDarkModeSupportBlackishGrey,
-              height: 0.3 * dimension.height,
-              // height: 0.3 * dimension.height,
+          return Drawer(
+            child: Column(
+              children: [
+                Container(
+                  color: ref.watch(lightModeActivatedStateProvider)
+                      ? Colors.grey
+                      : kDarkModeSupportBlackishGrey,
+                  height: 0.3 * dimension.height,
+                  // height: 0.3 * dimension.height,
+                ),
+                Expanded(
+                    child: Container(
+                  width: double.infinity,
+                  color: ref.watch(lightModeActivatedStateProvider)
+                      ? kAntiFlashWhite
+                      : kDarkModeMainBlack,
+                  child: Column(
+                    children: const [
+                      DrawerSwitch(),
+                      Spacer(),
+                      FollowLinksAndCopyRight(),
+                    ],
+                  ),
+                ))
+              ],
             ),
-            Expanded(
-                child: Container(
-              width: double.infinity,
-              color: ref.watch(lightModeActivatedStateProvider)? kAntiFlashWhite: kDarkModeMainBlack,
-              child: Column(
-                children: const [
-                  DrawerSwitch(),
-                  Spacer(),
-                  FollowLinksAndCopyRight(),
-                ],
-              ),
-            ))
-          ],
-        ),
-      );
+          );
         },
       ),
-      
-     
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _screenList.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -196,13 +192,15 @@ class FollowLinksAndCopyRight extends ConsumerWidget {
   const FollowLinksAndCopyRight({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-    final Color textColor = ref.watch(lightModeActivatedStateProvider)? Colors.grey: kAntiFlashWhite;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final Color textColor = ref.watch(lightModeActivatedStateProvider)
+        ? Colors.grey
+        : kAntiFlashWhite;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Column(
         children: [
-           Text(
+          Text(
             'Follow us on',
             style: TextStyle(
               color: textColor,
@@ -225,7 +223,7 @@ class FollowLinksAndCopyRight extends ConsumerWidget {
           const SizedBox(
             height: 12,
           ),
-           Text(
+          Text(
             'Ⓒ 2021 RocketDictionary® v0.0.10',
             style: TextStyle(
               color: textColor,

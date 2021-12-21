@@ -49,19 +49,21 @@ ThemeData lightThemeData = ThemeData(
 ThemeData darkThemeData = ThemeData(
     scaffoldBackgroundColor: kDarkModeMainBlack,
     primarySwatch: Colors.blue,
+    // textTheme: const TextTheme(
+    //     bodyText2:
+    //         TextStyle(color: kAntiFlashWhite, fontWeight: FontWeight.bold)),
     appBarTheme: const AppBarTheme(
       backgroundColor: kDarkModeMainBlack,
       elevation: 0,
       systemOverlayStyle: SystemUiOverlayStyle(
-        // Status bar color
-        statusBarColor: kDarkModeMainBlack, // For both Android + iOS
+          // Status bar color
+          statusBarColor: kDarkModeMainBlack, // For both Android + iOS
 
-        // Status bar brightness
-        statusBarIconBrightness: Brightness.light, // For Android
-        statusBarBrightness: Brightness.dark, // For iOS
+          // Status bar brightness
+          statusBarIconBrightness: Brightness.light, // For Android
+          statusBarBrightness: Brightness.dark, // For iOS
 
-        systemNavigationBarColor: Colors.white
-      ),
+          systemNavigationBarColor: Colors.white),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: kDarkModeSupportBlackishGrey,
