@@ -16,7 +16,7 @@ ThemeData lightThemeData = ThemeData(
   unselectedWidgetColor: kPrussianBlue,
   scaffoldBackgroundColor: kAntiFlashWhite,
   primarySwatch: Colors.blue,
-  // drawerTheme: DrawerThemeData(),
+  textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.black)),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Colors.white,
     elevation: 0,
@@ -49,9 +49,7 @@ ThemeData lightThemeData = ThemeData(
 ThemeData darkThemeData = ThemeData(
     scaffoldBackgroundColor: kDarkModeMainBlack,
     primarySwatch: Colors.blue,
-    // textTheme: const TextTheme(
-    //     bodyText2:
-    //         TextStyle(color: kAntiFlashWhite, fontWeight: FontWeight.bold)),
+    textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.white)),
     appBarTheme: const AppBarTheme(
       backgroundColor: kDarkModeMainBlack,
       elevation: 0,
