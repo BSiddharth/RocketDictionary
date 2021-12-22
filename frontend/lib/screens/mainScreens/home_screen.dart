@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rocketdictionary/providers.dart';
+import 'package:rocketdictionary/screens/card_detailed.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,66 +24,71 @@ class RocketCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final isLightTheme = ref.watch(lightModeActivatedStateProvider);
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          child: Container(
-            decoration: isLightTheme
-                ? const BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 10,
-                        offset: Offset(0, 5),
-                      ),
-                    ],
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
-                    ),
-                  )
-                : null,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: 300,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/soyuz.jpg'),
-                          fit: BoxFit.cover),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomLeft: Radius.circular(12),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: isLightTheme
-                          ? Colors.white
-                          : kDarkModeSupportBlackishGrey,
-                      // color: kDarkModeSupportBlackishGrey,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
-                      ),
-                    ),
-                    child: const RocketCardInfo(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, CardDetailed.name);
       },
+      child: Consumer(
+        builder: (context, ref, child) {
+          final isLightTheme = ref.watch(lightModeActivatedStateProvider);
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: Container(
+              decoration: isLightTheme
+                  ? const BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12),
+                      ),
+                    )
+                  : null,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      height: 300,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/soyuz.jpg'),
+                            fit: BoxFit.cover),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      height: 300,
+                      decoration: BoxDecoration(
+                        color: isLightTheme
+                            ? Colors.white
+                            : kDarkModeSupportBlackishGrey,
+                        // color: kDarkModeSupportBlackishGrey,
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                        ),
+                      ),
+                      child: const RocketCardInfo(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

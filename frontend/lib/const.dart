@@ -13,6 +13,7 @@ const kPrussianBlue = Color(0xff2F3952);
 
 // Light mode theme
 ThemeData lightThemeData = ThemeData(
+  primaryIconTheme: IconThemeData(),
   unselectedWidgetColor: kPrussianBlue,
   scaffoldBackgroundColor: kAntiFlashWhite,
   primarySwatch: Colors.blue,

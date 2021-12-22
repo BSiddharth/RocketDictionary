@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rocketdictionary/customWidgets/custom_icon_button.dart';
 import 'package:rocketdictionary/providers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rocketdictionary/screens/mainScreens/bookmarks_screen.dart';
@@ -9,13 +10,13 @@ import 'package:rocketdictionary/screens/mainScreens/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
+  static const name = '/';
 
   @override
   State<MainScreen> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainScreen> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   static int _selectedIndex = 0;
 
   static const List<Widget> _screenList = <Widget>[
@@ -35,7 +36,6 @@ class _MainPageState extends State<MainScreen> {
     final dimension = MediaQuery.of(context).size;
 
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
         title: Consumer(
@@ -49,15 +49,18 @@ class _MainPageState extends State<MainScreen> {
             );
           },
         ),
-        leading: IconButton(
-            color: Theme.of(context).iconTheme.color,
-            onPressed: () {
-              _scaffoldKey.currentState?.openDrawer();
-            },
-            icon: const Icon(
-              Icons.menu_rounded,
-              size: 28,
-            )),
+        leading: Builder(builder: (context) {
+          // not using custom icon button because this is special case it needs the context from the builder and changing custom icon button for this not worth it.
+          return IconButton(
+              color: Theme.of(context).iconTheme.color,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(
+                Icons.menu_rounded,
+                size: 28,
+              ));
+        }),
         actions: [
           IconButton(
             onPressed: () {},
