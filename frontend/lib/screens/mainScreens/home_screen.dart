@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rocketdictionary/customWidgets/scroll_glow_remover.dart';
 import 'package:rocketdictionary/providers.dart';
 import 'package:rocketdictionary/screens/card_detailed.dart';
 
@@ -9,10 +10,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        RocketCard(),
-      ],
+    return ScrollGlowRemover(
+      child: ListView(
+        children: const [
+          RocketCard(),
+        ],
+      ),
     );
   }
 }
@@ -56,8 +59,9 @@ class RocketCard extends StatelessWidget {
                       height: 300,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('assets/images/soyuz.jpg'),
-                            fit: BoxFit.cover),
+                          image: AssetImage('assets/images/soyuz.jpg'),
+                          fit: BoxFit.cover,
+                        ),
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(12),

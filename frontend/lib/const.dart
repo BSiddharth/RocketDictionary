@@ -13,7 +13,6 @@ const kPrussianBlue = Color(0xff2F3952);
 
 // Light mode theme
 ThemeData lightThemeData = ThemeData(
-  primaryIconTheme: IconThemeData(),
   unselectedWidgetColor: kPrussianBlue,
   scaffoldBackgroundColor: kAntiFlashWhite,
   primarySwatch: Colors.blue,
@@ -24,6 +23,7 @@ ThemeData lightThemeData = ThemeData(
     selectedItemColor: kCerulean,
   ),
   appBarTheme: const AppBarTheme(
+    titleTextStyle: TextStyle(color: kPrussianBlue, fontSize: 20),
     backgroundColor: kAntiFlashWhite,
     elevation: 0,
     systemOverlayStyle: SystemUiOverlayStyle(
@@ -52,6 +52,7 @@ ThemeData darkThemeData = ThemeData(
     primarySwatch: Colors.blue,
     textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.white)),
     appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(color: kAntiFlashWhite, fontSize: 20),
       backgroundColor: kDarkModeMainBlack,
       elevation: 0,
       systemOverlayStyle: SystemUiOverlayStyle(
