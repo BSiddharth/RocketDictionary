@@ -90,7 +90,24 @@ class _MainPageState extends State<MainScreen> {
                       ? Colors.grey
                       : kDarkModeSupportBlackishGrey,
                   height: 0.3 * dimension.height,
-                  // height: 0.3 * dimension.height,
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 0.05 * dimension.height,
+                        child: const Text('SB'),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const Text(
+                        'Siddharth Bisht',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
                     child: Container(
