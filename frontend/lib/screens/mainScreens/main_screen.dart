@@ -18,10 +18,10 @@ class MainScreen extends StatefulWidget {
 class _MainPageState extends State<MainScreen> {
   static int _selectedIndex = 0;
 
-  static const List<Widget> _screenList = <Widget>[
-    HomeScreen(),
+  static final List<Widget> _screenList = <Widget>[
+    const HomeScreen(),
     GlossaryScreen(),
-    BookmarksScreen(),
+    const BookmarksScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -132,11 +132,6 @@ class _MainPageState extends State<MainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            // icon: Image.asset(
-            //   'assets/icons/rocket.png',
-            //   color: _selectedIndex == 0 ? kDeepSkyBlue : kAntiFlashWhite,
-            //   height: 25,
-            // ),
             icon: FaIcon(FontAwesomeIcons.rocket),
             label: 'Home',
           ),

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rocketdictionary/providers.dart';
-import 'package:rocketdictionary/screens/card_detailed.dart';
+import 'package:rocketdictionary/screens/cardDetailedScreens/card_detailed.dart';
 import 'package:rocketdictionary/screens/mainScreens/main_screen.dart';
 
 void main() {

@@ -2,26 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:rocketdictionary/customWidgets/scroll_glow_remover.dart';
 
 class GlossaryScreen extends StatelessWidget {
-  const GlossaryScreen({Key? key}) : super(key: key);
+  GlossaryScreen({Key? key}) : super(key: key);
+  final ScrollController _firstController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return ScrollGlowRemover(
-      child: ListView(
-        children: const [
-          Heading(heading: 'A'),
-          CollapsibleGlossaryCard(),
-          CollapsibleGlossaryCard(),
-          CollapsibleGlossaryCard(),
-          CollapsibleGlossaryCard(),
-          CollapsibleGlossaryCard(),
-          Heading(heading: 'B'),
-          CollapsibleGlossaryCard(),
-          CollapsibleGlossaryCard(),
-          CollapsibleGlossaryCard(),
-          CollapsibleGlossaryCard(),
-          CollapsibleGlossaryCard(),
-        ],
+      child: Scrollbar(
+        controller: _firstController,
+        child: ListView(
+          controller: _firstController,
+          children: const [
+            Heading(heading: 'A'),
+            CollapsibleGlossaryCard(),
+            CollapsibleGlossaryCard(),
+            CollapsibleGlossaryCard(),
+            CollapsibleGlossaryCard(),
+            CollapsibleGlossaryCard(),
+            Heading(heading: 'B'),
+            CollapsibleGlossaryCard(),
+            CollapsibleGlossaryCard(),
+            CollapsibleGlossaryCard(),
+            CollapsibleGlossaryCard(),
+            CollapsibleGlossaryCard(),
+          ],
+        ),
       ),
     );
   }

@@ -3,7 +3,7 @@ import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rocketdictionary/customWidgets/scroll_glow_remover.dart';
 import 'package:rocketdictionary/providers.dart';
-import 'package:rocketdictionary/screens/card_detailed.dart';
+import 'package:rocketdictionary/screens/cardDetailedScreens/card_detailed.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
