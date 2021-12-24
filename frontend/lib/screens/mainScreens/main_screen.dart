@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rocketdictionary/customWidgets/custom_icon_button.dart';
 import 'package:rocketdictionary/providers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rocketdictionary/screens/mainScreens/bookmarks_screen.dart';
@@ -112,9 +111,7 @@ class _MainPageState extends State<MainScreen> {
           );
         },
       ),
-      body: Center(
-        child: _screenList.elementAt(_selectedIndex),
-      ),
+      body: _screenList.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -227,7 +224,7 @@ class FollowLinksAndCopyRight extends ConsumerWidget {
             height: 12,
           ),
           Text(
-            'Ⓒ 2021 RocketDictionary® v0.0.10',
+            'Ⓒ 2021 RocketDictionary® v1.0.0',
             style: TextStyle(
               color: textColor,
               fontWeight: FontWeight.bold,

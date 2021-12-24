@@ -16,7 +16,14 @@ ThemeData lightThemeData = ThemeData(
   unselectedWidgetColor: kPrussianBlue,
   scaffoldBackgroundColor: kAntiFlashWhite,
   primarySwatch: Colors.blue,
-  textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.black)),
+  cardColor: Colors.white,
+  textTheme: const TextTheme(
+    bodyText1: TextStyle(color: Colors.black),
+    bodyText2: TextStyle(color: Colors.black),
+    subtitle1: TextStyle(color: Colors.black),
+    subtitle2: TextStyle(color: Colors.black),
+    // bodyText2: TextStyle(color: Colors.black),
+  ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Colors.white,
     elevation: 0,
@@ -50,7 +57,12 @@ ThemeData lightThemeData = ThemeData(
 ThemeData darkThemeData = ThemeData(
     scaffoldBackgroundColor: kDarkModeMainBlack,
     primarySwatch: Colors.blue,
-    textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.white)),
+    cardColor: kDarkModeSupportBlackishGrey,
+    textTheme: const TextTheme(
+        bodyText1: TextStyle(color: kAntiFlashWhite),
+        bodyText2: TextStyle(color: kAntiFlashWhite),
+        subtitle1: TextStyle(color: kAntiFlashWhite),
+        subtitle2: TextStyle(color: kAntiFlashWhite)),
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(color: kAntiFlashWhite, fontSize: 20),
       backgroundColor: kDarkModeMainBlack,
