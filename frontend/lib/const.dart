@@ -26,7 +26,7 @@ ThemeData lightThemeData = ThemeData(
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Colors.white,
-    elevation: 0,
+    elevation: 10,
     selectedItemColor: kCerulean,
   ),
   appBarTheme: const AppBarTheme(
@@ -79,7 +79,7 @@ ThemeData darkThemeData = ThemeData(
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: kDarkModeSupportBlackishGrey,
-      elevation: 0,
+      elevation: 10,
       selectedItemColor: kDeepSkyBlue,
       unselectedItemColor: kAntiFlashWhite,
     ),
