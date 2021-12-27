@@ -9,6 +9,9 @@ const glossarySchema = new mongoose.Schema(
   }
 );
 
-const Glossary = mongoose.model("Glossary", glossarySchema);
+const GlossaryModel = mongoose.model(
+  "Glossary", // This name is pluralized (is this even a word?) by default but if collection is passed as an option to the schema that name is used as collection name
+  glossarySchema
+);
 
-module.exports = Glossary;
+module.exports = GlossaryModel;
