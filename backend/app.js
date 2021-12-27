@@ -3,10 +3,9 @@ const app = express();
 const port = 3000;
 require("dotenv").config();
 const connectToDB = require("./connectDB");
+const v1api = require("./api/v1.0.0");
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/api/v1.0.0/", v1api);
 
 const start = async () => {
   try {
