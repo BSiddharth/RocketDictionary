@@ -1,41 +1,15 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:rocketdictionary/apiServices/get_glossary_list.dart';
 import 'package:rocketdictionary/customWidgets/scroll_glow_remover.dart';
+import 'package:rocketdictionary/models/glossary_word.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
 class GlossaryScreen extends StatelessWidget {
-  GlossaryScreen({Key? key}) : super(key: key);
-  // final ScrollController _firstController = ScrollController();
-  final List<String> alphabets = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z"
-  ];
-
+  const GlossaryScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Consumer(
@@ -51,59 +25,80 @@ class GlossaryScreen extends StatelessWidget {
             ),
           );
         } else if (glossaryListState is GlossaryListLoadedState) {
-          return const Center(
-            child: Text('Loaded'),
+          final glossaryMap = glossaryListState.glossaryMap;
+          final glossaryMapKeys = glossaryMap.keys.toList();
+          return ScrollGlowRemover(
+            child: Scrollbar(
+              child: ListView.builder(
+                itemCount: glossaryMap.length,
+                itemBuilder: (context, index) {
+                  final heading = glossaryMapKeys[index];
+                  final childrenList = glossaryMap[heading]
+                      .map<Widget>((ele) => CollapsibleGlossaryCard(
+                            name: ele.name,
+                            description: ele.description,
+                          ))
+                      .toList();
+                  return StickyHeader(
+                    header: Heading(
+                      heading: heading,
+                    ),
+                    content: Column(
+                      children: childrenList,
+                    ),
+                  );
+                },
+              ),
+            ),
           );
         } else {
-          return const Center(
-            child: Text('Error'),
+          return SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Something is not right',
+                  style: TextStyle(fontSize: 15),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      textStyle:
+                          const TextStyle(fontSize: 20, color: Colors.white)),
+                  onPressed: () async {
+                    ref
+                        .read(glossaryListNotifierProvider.notifier)
+                        .getGlossaryList();
+                    // final http.Response response =
+                    //     await backendGetGlossaryList();
+                    // final workingList = jsonDecode(response.body);
+                    // var glossaryMap = {};
+                    // // GlossaryWord glossaryWord;
+                    // workingList.forEach((value) {
+                    //   final glossaryWord = GlossaryWord(
+                    //       name: value['name'],
+                    //       description: value['description']);
+                    //   final startingAlphabet =
+                    //       glossaryWord.name[0].toUpperCase();
+                    //   if (glossaryMap.containsKey(startingAlphabet)) {
+                    //     glossaryMap[startingAlphabet].add(glossaryWord);
+                    //   } else {
+                    //     glossaryMap[startingAlphabet] = [];
+                    //   }
+                    // });
+                    // print(glossaryMap);
+                  },
+                  child: const Text('Reload'),
+                ),
+              ],
+            ),
           );
         }
       },
     );
-    // ScrollGlowRemover(
-    //   child: Scrollbar(
-    //     // controller: _firstController,
-    //     child: ListView.builder(
-    //       itemCount: 26,
-    //       itemBuilder: (context, index) {
-    //         return StickyHeader(
-    //           header: Heading(
-    //             heading: alphabets[index],
-    //           ),
-    //           content: Column(
-    //             children: const [
-    //               CollapsibleGlossaryCard(),
-    //               CollapsibleGlossaryCard(),
-    //               CollapsibleGlossaryCard(),
-    //               CollapsibleGlossaryCard(),
-    //               CollapsibleGlossaryCard(),
-    //               CollapsibleGlossaryCard(),
-    //             ],
-    //           ),
-    //         );
-    //       },
-    //     ),
-    //   ),
-    //   // (
-    //   // controller: _firstController,
-    //   // children: const [
-    //   //   Heading(heading: 'A'),
-    //   //   CollapsibleGlossaryCard(),
-    //   //   CollapsibleGlossaryCard(),
-    //   //   CollapsibleGlossaryCard(),
-    //   //   CollapsibleGlossaryCard(),
-    //   //   CollapsibleGlossaryCard(),
-    //   //   Heading(heading: 'B'),
-    //   //   CollapsibleGlossaryCard(),
-    //   //   CollapsibleGlossaryCard(),
-    //   //   CollapsibleGlossaryCard(),
-    //   //   CollapsibleGlossaryCard(),
-    //   //   CollapsibleGlossaryCard(),
-    //   // ],
-    //   // ),
-    //   // ),
-    // );
   }
 }
 
@@ -137,12 +132,16 @@ class Heading extends StatelessWidget {
 }
 
 class CollapsibleGlossaryCard extends StatelessWidget {
-  const CollapsibleGlossaryCard({Key? key}) : super(key: key);
+  final String name;
+  final String description;
+  const CollapsibleGlossaryCard(
+      {Key? key, required this.name, required this.description})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(
+    return Padding(
+      padding: const EdgeInsets.symmetric(
         horizontal: 12.0,
         vertical: 5.0,
       ),
@@ -150,12 +149,12 @@ class CollapsibleGlossaryCard extends StatelessWidget {
         // color: kDarkModeSupportBlackishGrey,
         margin: EdgeInsets.zero,
         child: ExpansionTile(
+          textColor: Theme.of(context).textTheme.bodyText1!.color,
           iconColor: Colors.grey,
           collapsedIconColor: Colors.grey,
-          title: Text('ExpansionTile 1'),
-          subtitle: Text('Trailing expansion arrow icon'),
+          title: Text(name),
           children: <Widget>[
-            ListTile(title: Text('This is tile number 1')),
+            ListTile(title: Text(description)),
           ],
         ),
       ),
@@ -172,16 +171,16 @@ class GlossaryListLoadingState extends GlossaryListState {
 }
 
 class GlossaryListLoadedState extends GlossaryListState {
-  final List glossaryList;
-  const GlossaryListLoadedState({required this.glossaryList});
+  final Map glossaryMap;
+  const GlossaryListLoadedState({required this.glossaryMap});
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-    return o is GlossaryListLoadedState && o.glossaryList == glossaryList;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is GlossaryListLoadedState && other.glossaryMap == glossaryMap;
   }
 
   @override
-  int get hashCode => glossaryList.hashCode;
+  int get hashCode => glossaryMap.hashCode;
 }
 
 class GlossaryListErrorState extends GlossaryListState {
@@ -189,14 +188,31 @@ class GlossaryListErrorState extends GlossaryListState {
 }
 
 class GlossaryListStateNotifier extends StateNotifier<GlossaryListState> {
-  GlossaryListStateNotifier() : super(const GlossaryListLoadingState());
+  GlossaryListStateNotifier() : super(const GlossaryListErrorState());
+  // GlossaryListStateNotifier() : super(const GlossaryListLoadedState());
+  // GlossaryListStateNotifier() : super(const GlossaryListLoadingState());
 
   Future<void> getGlossaryList() async {
     try {
       state = const GlossaryListLoadingState();
+      final http.Response response = await backendGetGlossaryList();
+      final workingList = jsonDecode(response.body);
+      var glossaryMap = {};
+      // GlossaryWord glossaryWord;
+      workingList.forEach((value) {
+        final glossaryWord = GlossaryWord(
+            name: value['name'], description: value['description']);
+        final startingAlphabet = glossaryWord.name[0].toUpperCase();
+        if (glossaryMap.containsKey(startingAlphabet)) {
+          glossaryMap[startingAlphabet].add(glossaryWord);
+        } else {
+          glossaryMap[startingAlphabet] = [glossaryWord];
+        }
+      });
+      state = GlossaryListLoadedState(glossaryMap: glossaryMap);
+
       // get list here
     } catch (e) {
-      print('e');
       state = const GlossaryListErrorState();
     }
   }
