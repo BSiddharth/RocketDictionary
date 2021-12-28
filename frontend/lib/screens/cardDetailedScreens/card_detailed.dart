@@ -6,7 +6,7 @@ import 'package:rocketdictionary/screens/cardDetailedScreens/gallery_screen.dart
 import 'package:rocketdictionary/screens/cardDetailedScreens/wiki_screen.dart';
 
 class CardDetailed extends StatelessWidget {
-  CardDetailed({Key? key}) : super(key: key);
+  const CardDetailed({Key? key}) : super(key: key);
   static const name = '/CardDetailed';
 
   // final ScrollController _scrollController = ScrollController();

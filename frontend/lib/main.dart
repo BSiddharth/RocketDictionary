@@ -26,7 +26,7 @@ class MyApp extends ConsumerWidget {
       initialRoute: '/',
       routes: {
         MainScreen.name: (context) => const MainScreen(),
-        CardDetailed.name: (context) => CardDetailed(),
+        CardDetailed.name: (context) => const CardDetailed(),
       },
     );
   }
