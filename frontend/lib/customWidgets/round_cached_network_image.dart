@@ -19,7 +19,10 @@ class RoundCachedNetworkImage extends StatelessWidget {
         width: dimension,
         height: dimension,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.black,
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(1000)),
           image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
         ),
       ),
