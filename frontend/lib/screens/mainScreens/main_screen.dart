@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rocketdictionary/customWidgets/drawer_switch.dart';
+import 'package:rocketdictionary/customWidgets/follow_links_and_copyright.dart';
 import 'package:rocketdictionary/providers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rocketdictionary/screens/mainScreens/bookmarks_screen.dart';
 import 'package:rocketdictionary/screens/mainScreens/glossary_screen.dart';
 import 'package:rocketdictionary/screens/mainScreens/home_screen.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
   static const name = '/';
-
   @override
-  State<MainScreen> createState() => _MainPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MainScreenState();
 }
 
-class _MainPageState extends State<MainScreen> {
+class _MainScreenState extends ConsumerState<MainScreen> {
   static int _selectedIndex = 0;
 
   static final List<Widget> _screenList = <Widget>[
@@ -28,6 +29,12 @@ class _MainPageState extends State<MainScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(glossaryListNotifierProvider.notifier).getGlossaryList();
   }
 
   @override
@@ -150,99 +157,6 @@ class _MainPageState extends State<MainScreen> {
         // unselectedItemColor: kAntiFlashWhite,
         onTap: _onItemTapped,
         // backgroundColor: kDarkModeSupportBlackishGrey,
-      ),
-    );
-  }
-}
-
-class DrawerSwitch extends ConsumerWidget {
-  const DrawerSwitch({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final bool switchValue = !ref.watch(lightModeActivatedStateProvider);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            Icons.wb_sunny_outlined,
-            color: Colors.orange,
-            size: 34,
-          ),
-          const SizedBox(
-            width: 7,
-          ),
-          Transform.scale(
-            scale: 1.1,
-            child: Switch(
-              value: switchValue,
-              onChanged: (val) {
-                ref.read(lightModeActivatedStateProvider.state).state = !val;
-              },
-              activeColor: kCornFlowerBlue,
-              inactiveThumbColor: Colors.orange,
-            ),
-          ),
-          const SizedBox(
-            width: 7,
-          ),
-          const Icon(
-            Icons.nightlight_outlined,
-            color: kCornFlowerBlue,
-            size: 34,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class FollowLinksAndCopyRight extends ConsumerWidget {
-  const FollowLinksAndCopyRight({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final Color textColor = ref.watch(lightModeActivatedStateProvider)
-        ? Colors.grey
-        : kAntiFlashWhite;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: Column(
-        children: [
-          Text(
-            'Follow us on',
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              FaIcon(FontAwesomeIcons.facebookF),
-              FaIcon(FontAwesomeIcons.twitter),
-              FaIcon(FontAwesomeIcons.instagram),
-              FaIcon(FontAwesomeIcons.linkedinIn),
-              FaIcon(FontAwesomeIcons.telegram),
-            ],
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          Text(
-            'Ⓒ 2021 RocketDictionary® v1.0.0',
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
       ),
     );
   }

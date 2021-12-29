@@ -30,9 +30,9 @@ class GlossaryListErrorState extends GlossaryListState {
 }
 
 class GlossaryListStateNotifier extends StateNotifier<GlossaryListState> {
-  GlossaryListStateNotifier() : super(const GlossaryListErrorState());
+  // GlossaryListStateNotifier() : super(const GlossaryListErrorState());
   // GlossaryListStateNotifier() : super(const GlossaryListLoadedState());
-  // GlossaryListStateNotifier() : super(const GlossaryListLoadingState());
+  GlossaryListStateNotifier() : super(const GlossaryListLoadingState());
 
   Future<void> getGlossaryList() async {
     try {
