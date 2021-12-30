@@ -9,7 +9,8 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,20 +28,24 @@ class HomeScreen extends StatelessWidget {
                 onRefresh:
                     ref.read(rocketListNotifierProvider.notifier).getRocketList,
                 child: ListView.builder(
+                  controller: _scrollController,
                   itemCount: rocketMap.length,
                   itemBuilder: (context, index) {
                     final heading = rocketMapKeys[index];
                     final childrenList = rocketMap[heading]
                         .map<Widget>(
                           (ele) => RocketCard(
-                              mainImageUrl: ele.mainImageUrl,
-                              rocketName: ele.rocketName,
-                              rocketManufacturerName:
-                                  ele.rocketManufacturerName,
-                              rocketStatus: ele.rocketStatus,
-                              countryImageUrl: ele.countryImageUrl,
-                              rocketType: ele.rocketType,
-                              rocketCPL: ele.rocketCPL),
+                            mainImageUrl: ele.mainImageUrl,
+                            rocketName: ele.rocketName,
+                            rocketManufacturerName: ele.rocketManufacturerName,
+                            rocketStatus: ele.rocketStatus,
+                            countryImageUrl: ele.countryImageUrl,
+                            rocketType: ele.rocketType,
+                            rocketCPL: ele.rocketCPL,
+                            content: ele.content,
+                            summary: ele.summary,
+                            images: ele.images,
+                          ),
                         )
                         .toList();
                     return StickyHeader(

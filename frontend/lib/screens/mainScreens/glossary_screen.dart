@@ -9,7 +9,9 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class GlossaryScreen extends StatelessWidget {
-  const GlossaryScreen({Key? key}) : super(key: key);
+  GlossaryScreen({Key? key}) : super(key: key);
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Consumer(
@@ -27,6 +29,7 @@ class GlossaryScreen extends StatelessWidget {
                     .read(glossaryListNotifierProvider.notifier)
                     .getGlossaryList,
                 child: ListView.builder(
+                  controller: _scrollController,
                   itemCount: glossaryMap.length,
                   itemBuilder: (context, index) {
                     final heading = glossaryMapKeys[index];

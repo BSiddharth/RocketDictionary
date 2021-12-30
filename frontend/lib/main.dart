@@ -26,7 +26,29 @@ class MyApp extends ConsumerWidget {
       initialRoute: '/',
       routes: {
         MainScreen.name: (context) => const MainScreen(),
-        CardDetailed.name: (context) => const CardDetailed(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == CardDetailed.name) {
+          // Cast the arguments to the correct
+          // type: ScreenArguments.
+          final args = settings.arguments as Map;
+
+          // Then, extract the required data from
+          // the arguments and pass the data to the
+          // correct screen.
+          return MaterialPageRoute(
+            builder: (context) {
+              return CardDetailed(
+                summary: args['summary'],
+                rocketName: args['rocketName'],
+                content: args['content'],
+                images: args['images'],
+              );
+            },
+          );
+        }
+        assert(false, 'Need to implement ${settings.name}');
+        return null;
       },
     );
   }

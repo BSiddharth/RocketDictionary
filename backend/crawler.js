@@ -32,10 +32,25 @@ const getRocketTitle = async () => {
     console.log(error);
   }
 };
+
+const flattenTheDict = (originalDict, currentList) => {
+  currentList.push({
+    title: originalDict["title"],
+    content: originalDict["content"],
+  });
+  if (originalDict["items"] !== undefined) {
+    originalDict["items"].forEach((ele) => {
+      currentList = flattenTheDict(ele, currentList);
+    });
+  }
+  return currentList;
+};
+
 const addRocketData = async () => {
   var count = 0;
   try {
     await connectToDB(process.env.connectionString);
+    await RocketModel.deleteMany();
     console.log("Connected to the database");
     rocketTitleSet = await getRocketTitle();
     console.log("Rocket title set retreived");
@@ -45,14 +60,20 @@ const addRocketData = async () => {
         console.log(`Adding ${rocketTitle} to the database`);
         const page = await wiki().page(rocketTitle);
         const summary = await page.summary();
-        const content = await page.content();
         const mainImage = await page.mainImage();
-        const info = await page.info();
         const title = page.title;
+        const allImages = await page.images();
+        let images = allImages.filter((link) => link.indexOf("svg") === -1);
+        const info = (await page.fullInfo())["general"];
+        let content = await page.content();
+        let contentList = content.map((ele) => {
+          return flattenTheDict(ele, []);
+        });
         const rocket = new RocketModel({
           name: title,
           summary: summary,
-          content: content,
+          content: contentList,
+          images: images,
           manufacturer:
             typeof info["manufacturer"] === "object"
               ? "Many"
@@ -92,3 +113,4 @@ const addRocketData = async () => {
 };
 
 addRocketData();
+// module.exports = flattenTheDict;

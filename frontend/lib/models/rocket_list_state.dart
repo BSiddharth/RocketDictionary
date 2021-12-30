@@ -52,8 +52,9 @@ class RocketListStateNotifier extends StateNotifier<RocketListState> {
           rocketManufacturerName: value['manufacturer'] ?? 'N/A',
           rocketStatus: value['status'] ?? 'N/A',
           rocketType: value['type'] ?? 'N/A',
-          content: value['content'] ?? [],
+          content: value['content'],
           summary: value['summary'] ?? '',
+          images: value['images'],
         );
         final startingAlphabet = rocket.rocketName![0].toUpperCase();
         if (rocketMap.containsKey(startingAlphabet)) {

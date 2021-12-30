@@ -20,8 +20,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   static int _selectedIndex = 0;
 
   static final List<Widget> _screenList = <Widget>[
-    const HomeScreen(),
-    const GlossaryScreen(),
+    HomeScreen(),
+    GlossaryScreen(),
     const BookmarksScreen(),
   ];
 

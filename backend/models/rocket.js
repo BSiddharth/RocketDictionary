@@ -4,6 +4,7 @@ const rocketSchema = new mongoose.Schema(
     name: String,
     summary: String,
     content: Object,
+    images: Object,
     manufacturer: String,
     countryOfOrigin: String,
     costPerLaunch: String,

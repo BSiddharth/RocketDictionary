@@ -6,7 +6,8 @@ class Rocket {
   final String? countryImageUrl;
   final String? rocketType;
   final String? rocketCPL;
-  final List? content;
+  final List content;
+  final List images;
   final String? summary;
   const Rocket({
     required this.mainImageUrl,
@@ -17,6 +18,7 @@ class Rocket {
     required this.rocketType,
     required this.rocketCPL,
     required this.content,
+    required this.images,
     required this.summary,
   });
 }
