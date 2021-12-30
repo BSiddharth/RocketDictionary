@@ -34,6 +34,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   void initState() {
     super.initState();
+    ref.read(rocketListNotifierProvider.notifier).getRocketList();
     ref.read(glossaryListNotifierProvider.notifier).getGlossaryList();
   }
 

@@ -148,6 +148,7 @@ class RocketCardInfoBlock extends StatelessWidget {
             : Text(
                 data,
                 textAlign: TextAlign.center,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
         const SizedBox(height: 10),
         Text(

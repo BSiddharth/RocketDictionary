@@ -22,25 +22,30 @@ class GlossaryScreen extends StatelessWidget {
           final glossaryMapKeys = glossaryMap.keys.toList();
           return ScrollGlowRemover(
             child: Scrollbar(
-              child: ListView.builder(
-                itemCount: glossaryMap.length,
-                itemBuilder: (context, index) {
-                  final heading = glossaryMapKeys[index];
-                  final childrenList = glossaryMap[heading]
-                      .map<Widget>((ele) => CollapsibleGlossaryCard(
-                            name: ele.name,
-                            description: ele.description,
-                          ))
-                      .toList();
-                  return StickyHeader(
-                    header: Heading(
-                      heading: heading,
-                    ),
-                    content: Column(
-                      children: childrenList,
-                    ),
-                  );
-                },
+              child: RefreshIndicator(
+                onRefresh: ref
+                    .read(glossaryListNotifierProvider.notifier)
+                    .getGlossaryList,
+                child: ListView.builder(
+                  itemCount: glossaryMap.length,
+                  itemBuilder: (context, index) {
+                    final heading = glossaryMapKeys[index];
+                    final childrenList = glossaryMap[heading]
+                        .map<Widget>((ele) => CollapsibleGlossaryCard(
+                              name: ele.name,
+                              description: ele.description,
+                            ))
+                        .toList();
+                    return StickyHeader(
+                      header: Heading(
+                        heading: heading,
+                      ),
+                      content: Column(
+                        children: childrenList,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           );
@@ -61,11 +66,9 @@ class GlossaryScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       textStyle:
                           const TextStyle(fontSize: 20, color: Colors.white)),
-                  onPressed: () async {
-                    ref
-                        .read(glossaryListNotifierProvider.notifier)
-                        .getGlossaryList();
-                  },
+                  onPressed: ref
+                      .read(glossaryListNotifierProvider.notifier)
+                      .getGlossaryList,
                   child: const Text('Reload'),
                 ),
               ],
