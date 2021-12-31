@@ -30,18 +30,26 @@ class CardCachedNetworkMainImage extends StatelessWidget {
         ),
       ),
       errorWidget: (context, url, error) => Container(
-          decoration: const BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              bottomLeft: Radius.circular(12),
+        decoration: const BoxDecoration(
+          color: Colors.grey,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12),
+            bottomLeft: Radius.circular(12),
+          ),
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: CachedNetworkImageProvider(
+              'https://www.pngkit.com/png/detail/24-246151_spacecraft-rocket-launch-space-launch-astronaut-cartoon-rockets.png',
             ),
           ),
-          child: const Center(
-              child: Icon(
-            Icons.error,
-            color: Colors.redAccent,
-          ))),
+        ),
+        // child: const Center(
+        //   child: Icon(
+        //     Icons.error,
+        //     color: Colors.redAccent,
+        //   ),
+        // ),
+      ),
     );
   }
 }
