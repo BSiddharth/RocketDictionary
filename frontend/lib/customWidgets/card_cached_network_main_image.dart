@@ -19,7 +19,7 @@ class CardCachedNetworkMainImage extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(12),
-            bottomLeft: Radius.circular(12),
+            // bottomLeft: Radius.circular(12),
           ),
           image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
         ),
@@ -34,7 +34,7 @@ class CardCachedNetworkMainImage extends StatelessWidget {
           color: Colors.grey,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12),
-            bottomLeft: Radius.circular(12),
+            // bottomLeft: Radius.circular(12),
           ),
           image: DecorationImage(
             fit: BoxFit.cover,

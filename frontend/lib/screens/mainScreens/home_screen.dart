@@ -45,6 +45,8 @@ class HomeScreen extends StatelessWidget {
                             content: ele.content,
                             summary: ele.summary,
                             images: ele.images,
+                            id: ele.id,
+                            isBookmarked: ele.isBookmarked,
                           ),
                         )
                         .toList();

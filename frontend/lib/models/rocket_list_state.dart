@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,6 +42,7 @@ class RocketListStateNotifier extends StateNotifier<RocketListState> {
       final http.Response response = await backendGetRocketList();
       final workingList = jsonDecode(response.body);
       var rocketMap = {};
+      final bookmarks = Hive.box('bookMarks');
       // RocketWord RocketWord;
       workingList.forEach((value) {
         final rocket = Rocket(
@@ -55,6 +57,8 @@ class RocketListStateNotifier extends StateNotifier<RocketListState> {
           content: value['content'],
           summary: value['summary'] ?? '',
           images: value['images'],
+          id: value['_id'],
+          isBookmarked: bookmarks.containsKey(value['_id']),
         );
         final startingAlphabet = rocket.rocketName![0].toUpperCase();
         if (rocketMap.containsKey(startingAlphabet)) {

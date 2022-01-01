@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rocketdictionary/models/rocket.dart';
 import 'package:rocketdictionary/providers.dart';
 import 'package:rocketdictionary/screens/cardDetailedScreens/card_detailed.dart';
 import 'package:rocketdictionary/screens/mainScreens/main_screen.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(RocketAdapter());
+  await Hive.openBox('bookMarks');
+
   runApp(const ProviderScope(child: MyApp()));
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

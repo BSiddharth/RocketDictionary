@@ -11,6 +11,7 @@ const rocketSchema = new mongoose.Schema(
     type: String,
     status: String,
     mainImage: String,
+    id: String,
   },
   {
     collection: "Rockets",
