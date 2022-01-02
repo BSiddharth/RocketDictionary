@@ -4,7 +4,9 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rocketdictionary/apiServices/get_rocket_list.dart';
+import 'package:rocketdictionary/const.dart';
 import 'package:rocketdictionary/models/rocket.dart';
+import 'package:rocketdictionary/providers.dart';
 
 abstract class RocketListState {
   const RocketListState();
@@ -35,17 +37,16 @@ class RocketListStateNotifier extends StateNotifier<RocketListState> {
   // RocketListStateNotifier() : super(const RocketListErrorState());
   // RocketListStateNotifier() : super(const RocketListLoadedState());
   RocketListStateNotifier() : super(const RocketListLoadingState());
+  var workingList;
 
   Future<void> getRocketList() async {
     try {
       state = const RocketListLoadingState();
       final http.Response response = await backendGetRocketList();
-      final workingList = jsonDecode(response.body);
-      var rocketMap = {};
+      workingList = jsonDecode(response.body);
       final bookmarks = Hive.box('bookMarks');
-      // RocketWord RocketWord;
-      workingList.forEach((value) {
-        final rocket = Rocket(
+      workingList = workingList.map((value) {
+        return Rocket(
           mainImageUrl: value['mainImage'] ??
               'https://www.pngkit.com/png/detail/24-246151_spacecraft-rocket-launch-space-launch-astronaut-cartoon-rockets.png',
           rocketName: value['name'] ?? "N/A",
@@ -60,18 +61,47 @@ class RocketListStateNotifier extends StateNotifier<RocketListState> {
           id: value['_id'],
           isBookmarked: bookmarks.containsKey(value['_id']),
         );
+      }).toList();
+      filterRocketList(kfilter.name);
+    } catch (e) {
+      state = const RocketListErrorState();
+    }
+  }
+
+  void filterRocketList(kfilter filter) {
+    var rocketMap = {};
+    workingList.forEach((rocket) {
+      if (filter == kfilter.name) {
         final startingAlphabet = rocket.rocketName![0].toUpperCase();
         if (rocketMap.containsKey(startingAlphabet)) {
           rocketMap[startingAlphabet].add(rocket);
         } else {
           rocketMap[startingAlphabet] = [rocket];
         }
-      });
-      state = RocketListLoadedState(rocketMap: rocketMap);
+      } else if (filter == kfilter.manufacturer) {
+        final manufacturerName = rocket.rocketManufacturerName!;
+        if (rocketMap.containsKey(manufacturerName)) {
+          rocketMap[manufacturerName].add(rocket);
+        } else {
+          rocketMap[manufacturerName] = [rocket];
+        }
+      } else if (filter == kfilter.status) {
+        final rocketStatus = rocket.rocketStatus!;
+        if (rocketMap.containsKey(rocketStatus)) {
+          rocketMap[rocketStatus].add(rocket);
+        } else {
+          rocketMap[rocketStatus] = [rocket];
+        }
+      } else if (filter == kfilter.country) {
+        final manufacturerName = rocket.rocketManufacturerName!;
+        if (rocketMap.containsKey(manufacturerName)) {
+          rocketMap[manufacturerName].add(rocket);
+        } else {
+          rocketMap[manufacturerName] = [rocket];
+        }
+      }
+    });
 
-      // get list here
-    } catch (e) {
-      state = const RocketListErrorState();
-    }
+    state = RocketListLoadedState(rocketMap: rocketMap);
   }
 }

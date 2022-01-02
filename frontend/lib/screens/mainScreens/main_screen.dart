@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rocketdictionary/customWidgets/custom_icon_button.dart';
 import 'package:rocketdictionary/customWidgets/drawer_switch.dart';
 import 'package:rocketdictionary/customWidgets/follow_links_and_copyright.dart';
+import 'package:rocketdictionary/models/rocket_list_state.dart';
 import 'package:rocketdictionary/providers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rocketdictionary/screens/mainScreens/bookmarks_screen.dart';
@@ -69,12 +71,64 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               ));
         }),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.filter_list_rounded),
-            iconSize: 28,
-            color: kDarkModeGreen,
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: DropdownButtonHideUnderline(
+          //     child: DropdownButton<String>(
+          //       onChanged: (val) {
+          //         print(val);
+          //       },
+          //       icon: const Icon(
+          //         Icons.filter_list_rounded,
+          //         size: 28,
+          //         color: kDarkModeGreen,
+          //       ),
+          //       items: <String>['Name', 'Country', 'Manufacturer', 'Status']
+          //           .map<DropdownMenuItem<String>>((String value) {
+          //         return DropdownMenuItem<String>(
+          //             value: value, child: Text(value));
+          //       }).toList(),
+          //     ),
+          //   ),
+          // ),
+          PopupMenuButton<kfilter>(
+            enabled:
+                ref.watch(rocketListNotifierProvider) is RocketListLoadedState,
+            onSelected: (value) {
+              ref
+                  .read(rocketListNotifierProvider.notifier)
+                  .filterRocketList(value);
+            },
+            icon: const Icon(
+              Icons.filter_list_rounded,
+              size: 28,
+              color: kDarkModeGreen,
+            ),
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<kfilter>>[
+              const PopupMenuItem(
+                value: kfilter.name,
+                child: Text('Name'),
+              ),
+              const PopupMenuItem(
+                value: kfilter.manufacturer,
+                child: Text('Manufacturer'),
+              ),
+              const PopupMenuItem(
+                value: kfilter.country,
+                child: Text('Country'),
+              ),
+              const PopupMenuItem(
+                value: kfilter.status,
+                child: Text('Status'),
+              ),
+            ],
           ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(Icons.filter_list_rounded),
+          //   iconSize: 28,
+          //   color: kDarkModeGreen,
+          // ),
           Consumer(builder: (context, ref, child) {
             final color = ref.watch(lightModeActivatedStateProvider)
                 ? kCerulean

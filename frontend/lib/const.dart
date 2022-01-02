@@ -93,3 +93,6 @@ ThemeData darkThemeData = ThemeData(
 
 // Backend url
 const String kBackendURL = 'http://192.168.1.59:8000/api/v1.0.0/';
+
+// sort filters
+enum kfilter { name, country, manufacturer, status }
