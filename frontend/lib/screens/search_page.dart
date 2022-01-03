@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:rocketdictionary/customWidgets/custom_icon_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rocketdictionary/customWidgets/rocket_card.dart';
+import 'package:rocketdictionary/customWidgets/scroll_glow_remover.dart';
 import 'package:rocketdictionary/providers.dart';
 
 class SearchPage extends StatefulWidget {
@@ -15,6 +16,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String searchString = '';
+  final ScrollController _sc = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,24 +49,31 @@ class _SearchPageState extends State<SearchPage> {
                 child: Lottie.asset('assets/animation/bookmarksEmpty.json'),
               );
             } else {
-              return ListView.builder(
-                  itemCount: retrievedList.length,
-                  itemBuilder: (BuildContext context, int count) {
-                    return RocketCard(
-                        mainImageUrl: retrievedList[count].mainImageUrl!,
-                        rocketName: retrievedList[count].rocketName!,
-                        rocketManufacturerName:
-                            retrievedList[count].rocketManufacturerName!,
-                        rocketStatus: retrievedList[count].rocketStatus!,
-                        countryImageUrl: retrievedList[count].countryImageUrl!,
-                        rocketType: retrievedList[count].rocketType!,
-                        rocketCPL: retrievedList[count].rocketCPL!,
-                        summary: retrievedList[count].summary!,
-                        id: retrievedList[count].id,
-                        content: retrievedList[count].content,
-                        images: retrievedList[count].images,
-                        isBookmarked: retrievedList[count].isBookmarked);
-                  });
+              return ScrollGlowRemover(
+                child: Scrollbar(
+                  controller: _sc,
+                  child: ListView.builder(
+                      controller: _sc,
+                      itemCount: retrievedList.length,
+                      itemBuilder: (BuildContext context, int count) {
+                        return RocketCard(
+                            mainImageUrl: retrievedList[count].mainImageUrl!,
+                            rocketName: retrievedList[count].rocketName!,
+                            rocketManufacturerName:
+                                retrievedList[count].rocketManufacturerName!,
+                            rocketStatus: retrievedList[count].rocketStatus!,
+                            countryImageUrl:
+                                retrievedList[count].countryImageUrl!,
+                            rocketType: retrievedList[count].rocketType!,
+                            rocketCPL: retrievedList[count].rocketCPL!,
+                            summary: retrievedList[count].summary!,
+                            id: retrievedList[count].id,
+                            content: retrievedList[count].content,
+                            images: retrievedList[count].images,
+                            isBookmarked: retrievedList[count].isBookmarked);
+                      }),
+                ),
+              );
             }
           },
         ));
