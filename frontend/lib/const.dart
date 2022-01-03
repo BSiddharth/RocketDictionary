@@ -56,40 +56,42 @@ ThemeData lightThemeData = ThemeData(
 
 // Dark Mode theme
 ThemeData darkThemeData = ThemeData(
-  scaffoldBackgroundColor: kDarkModeMainBlack,
-  primarySwatch: Colors.blue,
-  cardColor: kDarkModeSupportBlackishGrey,
-  textTheme: const TextTheme(
-      bodyText1: TextStyle(color: kAntiFlashWhite),
-      bodyText2: TextStyle(color: kAntiFlashWhite),
-      subtitle1: TextStyle(color: kAntiFlashWhite),
-      subtitle2: TextStyle(color: kAntiFlashWhite)),
-  appBarTheme: const AppBarTheme(
-    titleTextStyle: TextStyle(color: kAntiFlashWhite, fontSize: 20),
-    backgroundColor: kDarkModeMainBlack,
-    elevation: 0,
-    systemOverlayStyle: SystemUiOverlayStyle(
-        // Status bar color
-        statusBarColor: kDarkModeMainBlack, // For both Android + iOS
+    scaffoldBackgroundColor: kDarkModeMainBlack,
+    primarySwatch: Colors.blue,
+    cardColor: kDarkModeSupportBlackishGrey,
+    textTheme: const TextTheme(
+        bodyText1: TextStyle(color: kAntiFlashWhite),
+        bodyText2: TextStyle(color: kAntiFlashWhite),
+        subtitle1: TextStyle(color: kAntiFlashWhite),
+        subtitle2: TextStyle(color: kAntiFlashWhite)),
+    appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(color: kAntiFlashWhite, fontSize: 20),
+      backgroundColor: kDarkModeMainBlack,
+      elevation: 0,
+      systemOverlayStyle: SystemUiOverlayStyle(
+          // Status bar color
+          statusBarColor: kDarkModeMainBlack, // For both Android + iOS
 
-        // Status bar brightness
-        statusBarIconBrightness: Brightness.light, // For Android
-        statusBarBrightness: Brightness.dark, // For iOS
+          // Status bar brightness
+          statusBarIconBrightness: Brightness.light, // For Android
+          statusBarBrightness: Brightness.dark, // For iOS
 
-        systemNavigationBarColor: Colors.white),
-  ),
-  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: kDarkModeSupportBlackishGrey,
-    elevation: 10,
-    selectedItemColor: kDeepSkyBlue,
-    unselectedItemColor: kAntiFlashWhite,
-  ),
-  iconTheme: const IconThemeData(size: 28, color: kAntiFlashWhite),
-  switchTheme: SwitchThemeData(
-    trackColor: MaterialStateProperty.all<Color>(kAntiFlashWhite),
-  ),
-  listTileTheme: const ListTileThemeData(),
-);
+          systemNavigationBarColor: Colors.white),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: kDarkModeSupportBlackishGrey,
+      elevation: 10,
+      selectedItemColor: kDeepSkyBlue,
+      unselectedItemColor: kAntiFlashWhite,
+    ),
+    iconTheme: const IconThemeData(size: 28, color: kAntiFlashWhite),
+    switchTheme: SwitchThemeData(
+      trackColor: MaterialStateProperty.all<Color>(kAntiFlashWhite),
+    ),
+    listTileTheme: const ListTileThemeData(),
+    inputDecorationTheme: const InputDecorationTheme(
+      hintStyle: TextStyle(color: Colors.white, fontSize: 18),
+    ));
 
 // Backend url
 const String kBackendURL = 'http://192.168.1.59:8000/api/v1.0.0/';

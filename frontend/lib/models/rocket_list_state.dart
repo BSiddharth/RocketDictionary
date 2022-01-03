@@ -37,16 +37,16 @@ class RocketListStateNotifier extends StateNotifier<RocketListState> {
   // RocketListStateNotifier() : super(const RocketListErrorState());
   // RocketListStateNotifier() : super(const RocketListLoadedState());
   RocketListStateNotifier() : super(const RocketListLoadingState());
-  var workingList;
+  var workingList = [];
 
-  Future<void> getRocketList() async {
+  Future<void> getRocketList(ConsumerStatefulElement ref) async {
     try {
       state = const RocketListLoadingState();
       final http.Response response = await backendGetRocketList();
       workingList = jsonDecode(response.body);
       final bookmarks = Hive.box('bookMarks');
       workingList = workingList.map((value) {
-        return Rocket(
+        final rocket = Rocket(
           mainImageUrl: value['mainImage'] ??
               'https://www.pngkit.com/png/detail/24-246151_spacecraft-rocket-launch-space-launch-astronaut-cartoon-rockets.png',
           rocketName: value['name'] ?? "N/A",
@@ -61,6 +61,10 @@ class RocketListStateNotifier extends StateNotifier<RocketListState> {
           id: value['_id'],
           isBookmarked: bookmarks.containsKey(value['_id']),
         );
+        ref
+            .read(retrievalProvider)
+            .insert(rocket.rocketName!.toUpperCase(), rocket);
+        return rocket;
       }).toList();
       filterRocketList(kfilter.name);
     } catch (e) {
@@ -70,7 +74,7 @@ class RocketListStateNotifier extends StateNotifier<RocketListState> {
 
   void filterRocketList(kfilter filter) {
     var rocketMap = {};
-    workingList.forEach((rocket) {
+    for (var rocket in workingList) {
       if (filter == kfilter.name) {
         final startingAlphabet = rocket.rocketName![0].toUpperCase();
         if (rocketMap.containsKey(startingAlphabet)) {
@@ -100,7 +104,7 @@ class RocketListStateNotifier extends StateNotifier<RocketListState> {
           rocketMap[manufacturerName] = [rocket];
         }
       }
-    });
+    }
 
     state = RocketListLoadedState(rocketMap: rocketMap);
   }

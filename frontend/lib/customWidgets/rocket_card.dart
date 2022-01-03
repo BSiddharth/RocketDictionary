@@ -7,7 +7,7 @@ import 'package:rocketdictionary/models/rocket.dart';
 import 'package:rocketdictionary/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:rocketdictionary/customWidgets/round_cached_network_image.dart';
-import 'package:rocketdictionary/screens/cardDetailedScreens/card_detailed.dart';
+import 'package:rocketdictionary/screens/card_detailed.dart';
 
 class RocketCard extends ConsumerStatefulWidget {
   final String mainImageUrl;

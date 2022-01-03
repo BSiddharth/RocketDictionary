@@ -5,8 +5,9 @@ import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rocketdictionary/models/rocket.dart';
 import 'package:rocketdictionary/providers.dart';
-import 'package:rocketdictionary/screens/cardDetailedScreens/card_detailed.dart';
+import 'package:rocketdictionary/screens/card_detailed.dart';
 import 'package:rocketdictionary/screens/mainScreens/main_screen.dart';
+import 'package:rocketdictionary/screens/search_page.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -32,6 +33,7 @@ class MyApp extends ConsumerWidget {
       initialRoute: '/',
       routes: {
         MainScreen.name: (context) => const MainScreen(),
+        SearchPage.name: (context) => const SearchPage(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == CardDetailed.name) {

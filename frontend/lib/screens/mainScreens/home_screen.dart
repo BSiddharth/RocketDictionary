@@ -25,8 +25,11 @@ class HomeScreen extends StatelessWidget {
           return ScrollGlowRemover(
             child: Scrollbar(
               child: RefreshIndicator(
-                onRefresh:
-                    ref.read(rocketListNotifierProvider.notifier).getRocketList,
+                onRefresh: () {
+                  return ref
+                      .read(rocketListNotifierProvider.notifier)
+                      .getRocketList(ref as ConsumerStatefulElement);
+                },
                 child: ListView.builder(
                   controller: _scrollController,
                   itemCount: rocketMap.length,
@@ -80,9 +83,11 @@ class HomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       textStyle:
                           const TextStyle(fontSize: 20, color: Colors.white)),
-                  onPressed: ref
-                      .read(rocketListNotifierProvider.notifier)
-                      .getRocketList,
+                  onPressed: () {
+                    ref
+                        .read(rocketListNotifierProvider.notifier)
+                        .getRocketList(ref as ConsumerStatefulElement);
+                  },
                   child: const Text('Reload'),
                 ),
               ],

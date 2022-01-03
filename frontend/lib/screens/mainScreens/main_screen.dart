@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rocketdictionary/const.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rocketdictionary/customWidgets/custom_icon_button.dart';
 import 'package:rocketdictionary/customWidgets/drawer_switch.dart';
 import 'package:rocketdictionary/customWidgets/follow_links_and_copyright.dart';
 import 'package:rocketdictionary/models/rocket_list_state.dart';
@@ -10,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rocketdictionary/screens/mainScreens/bookmarks_screen.dart';
 import 'package:rocketdictionary/screens/mainScreens/glossary_screen.dart';
 import 'package:rocketdictionary/screens/mainScreens/home_screen.dart';
+import 'package:rocketdictionary/screens/search_page.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -36,7 +36,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   void initState() {
     super.initState();
-    ref.read(rocketListNotifierProvider.notifier).getRocketList();
+    ref
+        .read(rocketListNotifierProvider.notifier)
+        .getRocketList(ref as ConsumerStatefulElement);
     ref.read(glossaryListNotifierProvider.notifier).getGlossaryList();
   }
 
@@ -71,26 +73,6 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               ));
         }),
         actions: [
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: DropdownButtonHideUnderline(
-          //     child: DropdownButton<String>(
-          //       onChanged: (val) {
-          //         print(val);
-          //       },
-          //       icon: const Icon(
-          //         Icons.filter_list_rounded,
-          //         size: 28,
-          //         color: kDarkModeGreen,
-          //       ),
-          //       items: <String>['Name', 'Country', 'Manufacturer', 'Status']
-          //           .map<DropdownMenuItem<String>>((String value) {
-          //         return DropdownMenuItem<String>(
-          //             value: value, child: Text(value));
-          //       }).toList(),
-          //     ),
-          //   ),
-          // ),
           PopupMenuButton<kfilter>(
             enabled:
                 ref.watch(rocketListNotifierProvider) is RocketListLoadedState,
@@ -123,18 +105,14 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               ),
             ],
           ),
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: const Icon(Icons.filter_list_rounded),
-          //   iconSize: 28,
-          //   color: kDarkModeGreen,
-          // ),
           Consumer(builder: (context, ref, child) {
             final color = ref.watch(lightModeActivatedStateProvider)
                 ? kCerulean
                 : kDeepSkyBlue;
             return IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, SearchPage.name);
+              },
               icon: const Icon(Icons.search),
               iconSize: 28,
               color: color,
@@ -207,11 +185,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        // selectedItemColor: kDeepSkyBlue,
-        // selectedItemColor: kCerulean,
-        // unselectedItemColor: kAntiFlashWhite,
         onTap: _onItemTapped,
-        // backgroundColor: kDarkModeSupportBlackishGrey,
       ),
     );
   }
